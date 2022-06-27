@@ -1,14 +1,17 @@
-function isAlphaNumeric(char) {
-  const code = char.charCodeAt(0);
-  if (
-    !(code > 47 && code < 58) &&
-    !(code > 64 && code < 91) &&
-    !(code > 96 && code < 123)
-  ) {
-    return false;
+function maxSubarraySum(arr, num) {
+  let maxSum = -Infinity;
+
+  for (let i = 0; i < arr.length; i++) {
+    let currSum = 0;
+    for (let j = i; j < num + i; j++) {
+      currSum += arr[j];
+    }
+    if (currSum > maxSum) {
+      maxSum = currSum;
+    }
   }
 
-  return true;
+  return maxSum;
 }
-
-console.log(isAlphaNumeric("a"));
+console.log(maxSubarraySum([2, 6, 1, 5, 2, 7, 2], 3));
+//                          -     -
