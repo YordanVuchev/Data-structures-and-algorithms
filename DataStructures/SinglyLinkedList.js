@@ -91,13 +91,74 @@ class SinglyLinkedList {
     }
     return false;
   }
+
+  insert(index, value) {
+    if (index < 0 || index > this.length) return false;
+    if (index === this.length) {
+      return !!this.push(value);
+    }
+    if (index === 0) {
+      return !!this.unshift(value);
+    }
+    const newNode = new Node(value);
+    const previous = this.get(index - 1);
+    let temp = previous.next;
+    previous.next = newNode;
+    newNode.next = temp;
+    this.length++;
+    return true;
+  }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+    const previousNode = this.get(index - 1);
+    const removed = previousNode.next;
+    previousNode.next = removed.next;
+    this.length--;
+    return removed;
+  }
+
+  reverse() {
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+
+    let prev = null;
+    let next = null;
+
+    for (let i = 0; i < this.length; i++) {
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
+    }
+
+    return this;
+  }
+
+  print() {
+    let node = this.head;
+    while (node) {
+      console.log(node.val);
+      node = node.next;
+    }
+  }
 }
+///1 2 3 4
+// N A
+
 // const first = new Node("Hi");
 // first.next = new Node("there");
 // first.next.next = new Node("how");
 // first.next.next.next = new Node("are");
 
 const list = new SinglyLinkedList();
-list.push("Hi");
-list.push("there");
-list.push("Yordan");
+// list.push("Hi");
+// list.push("there");
+// list.push("Yordan");
+list.push(1);
+list.push(2);
+list.push(3);
+list.push(4);
